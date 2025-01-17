@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ category_name }} Songs</title>
+  </head>
+  <body>
+    <h1>{{ category_name }} Songs</h1>
+    <ul>
+      {% for track in tracks %}
+      <li>
+        <strong>{{ track.name }}</strong> by {{ track.artists.0.name }}
+        <br />
+        <a href="{{ track.external_urls.spotify }}" target="_blank"
+          >Listen on Spotify</a
+        >
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

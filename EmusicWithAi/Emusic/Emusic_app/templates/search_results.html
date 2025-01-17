@@ -1,0 +1,316 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Results</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #121212;
+        margin: 0;
+        padding: 0;
+        color: white;
+      }
+
+      .navbar {
+        background: linear-gradient(
+          90deg,
+          rgba(2, 0, 36, 1) 0%,
+          rgba(75, 14, 154, 1) 35%,
+          rgba(0, 212, 255, 1) 100%
+        );
+      }
+
+      .navbar-brand,
+      .nav-link {
+        color: #ffffff !important;
+        font-size: 1.2rem;
+      }
+
+      .nav-link:hover {
+        text-decoration: none; /* Remove underline */
+      }
+
+      h1 {
+        background-color: #343a40;
+        color: white;
+        text-align: center;
+        padding: 20px 0;
+      }
+
+      .search-form {
+        text-align: center;
+        margin: 20px;
+      }
+
+      .search-form button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 25px;
+      }
+
+      .search-form button:hover {
+        background-color: #0056b3;
+      }
+
+      .form-control {
+        border-radius: 25px;
+        width: 300px;
+        padding: 10px;
+        background-color: #2c2f38;
+        color: #fff;
+        border: 1px solid #5a5a5a;
+      }
+
+      .form-control:focus {
+        background-color: #1e2329;
+        border-color: #007bff;
+      }
+
+      .voice-btn {
+        background-color: #17a2b8;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 25px;
+        margin-top: 15px;
+      }
+
+      .voice-btn:hover {
+        background-color: #138496;
+      }
+
+      .results-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin: 30px 0;
+      }
+
+      .result-item {
+        background-color: #1e2329;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 250px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .result-item:hover {
+        transform: translateY(-10px);
+      }
+
+      .result-item img {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-bottom: 15px;
+      }
+
+      .result-item h3 {
+        font-size: 18px;
+        color: #ffffff;
+      }
+
+      .result-item p {
+        color: #bbb;
+        font-size: 14px;
+      }
+
+      .listen-button {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 15px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+
+      .listen-button:hover {
+        background-color: #218838;
+      }
+
+      .no-results {
+        text-align: center;
+        font-size: 18px;
+        color: #888;
+        margin-top: 20px;
+      }
+
+      .icon {
+        font-size: 1.5rem;
+        color: #ffffff;
+        margin-left: 15px;
+        cursor: pointer;
+      }
+
+      .icon:hover {
+        color: #bbcbac;
+      }
+
+      .nav-link-signout {
+        margin-left: 15px;
+        color: #ffffff !important;
+        text-decoration: none;
+        font-size: 1.2rem;
+      }
+
+      .nav-link-signout:hover {
+        color: #bbcbac;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar Section -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <div class="d-flex align-items-center">
+          <a class="navbar-brand" href="{% url 'dashboard' %}">Emusic</a>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Center Section (Search Icon and Category Icon) -->
+        <div class="d-flex align-items-center mx-auto">
+          <a href="{% url 'category' %}" class="icon">
+            <i class="bi bi-list" title="Categories"></i>
+          </a>
+        </div>
+
+        <!-- Right Section (Icons with Text) -->
+        <div class="d-flex align-items-center ms-3">
+          <a href="{% url 'spotify_login' %}" class="icon-link ms-3">
+            <i class="icon bi bi-music-note-beamed" title="Songs"></i>
+            <span style="color: #ffffff">Songs</span>
+          </a>
+          <a href="{% url 'notification' %}" class="icon-link ms-3">
+            <i class="icon bi bi-bell" title="Notification"></i>
+            <span style="color: #ffffff">Notification</span>
+          </a>
+          <a href="{% url 'subscription' %}" class="icon-link ms-3">
+            <i class="icon bi bi-bag-check" title="Subscription"></i>
+            <span style="color: #ffffff">Subscription</span>
+          </a>
+          <a href="{% url 'profile' %}" class="icon-link ms-6">
+            <i class="icon bi bi-person-circle" title="Profile"></i>
+            <span style="color: #ffffff">Profile</span>
+          </a>
+          <a class="nav-link-signout ms-3" href="{% url 'signout' %}"
+            >Signout</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Search Section -->
+    <h1>"Explore, Discover, Listen!"</h1>
+
+    <div class="search-form">
+      <form method="get" action="{% url 'search' %}">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+      </form>
+      <!-- Voice Recognition Button -->
+      <button type="button" class="voice-btn" id="voice-btn">
+        🎤 Speak Now
+      </button>
+    </div>
+
+    {% if results %}
+    <h2>Results for "{{ form.cleaned_data.query }}"</h2>
+    <div class="results-container">
+      {% for item in results.tracks.items %}
+      <div class="result-item">
+        <img src="{{ item.album.images.0.url }}" alt="Album cover" />
+        <h3>{{ item.name }}</h3>
+        <p><strong>Artist:</strong> {{ item.artists.0.name }}</p>
+        <p><strong>Album:</strong> {{ item.album.name }}</p>
+        <a
+          href="{{ item.external_urls.spotify }}"
+          target="_blank"
+          class="listen-button"
+        >
+          Listen Now
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="no-results"></p>
+    {% endif %}
+
+    <!-- JavaScript for Speech Recognition -->
+    <script>
+      const voiceButton = document.getElementById("voice-btn");
+      const searchInput = document.querySelector('input[name="query"]'); // The search input field
+
+      // Check if the browser supports speech recognition
+      const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.lang = "en-US"; // You can change the language if needed
+        recognition.interimResults = true;
+
+        // When the speech is recognized
+        recognition.onresult = function (event) {
+          const transcript = event.results[0][0].transcript; // Get the transcript of speech
+          searchInput.value = transcript; // Set the input field with the speech
+
+          // Optionally, trigger the form submission automatically
+          document.querySelector("form").submit();
+        };
+
+        // When the voice recognition ends
+        recognition.onend = function () {
+          voiceButton.innerText = "🎤 Speak Now"; // Reset button text
+        };
+
+        // When the user clicks the voice button to start recognition
+        voiceButton.addEventListener("click", function () {
+          voiceButton.innerText = "Listening..."; // Update button text while listening
+          recognition.start(); // Start the recognition process
+        });
+      } else {
+        // If the browser doesn't support SpeechRecognition
+        voiceButton.style.display = "none"; // Hide the button if not supported
+        alert("Your browser does not support voice recognition.");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,317 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify Categories</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #121212;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        background: linear-gradient(
+          90deg,
+          rgba(2, 0, 36, 1) 0%,
+          rgba(75, 14, 154, 1) 35%,
+          rgba(0, 212, 255, 1) 100%
+        );
+      }
+
+      .navbar-brand,
+      .nav-link {
+        color: #ffffff !important;
+        font-size: 1.2rem;
+      }
+
+      .nav-link:hover {
+        text-decoration: none;
+        color: #bbcbac;
+      }
+
+      .category-list-horizontal {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+      }
+
+      .category-card {
+        width: 200px;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .category-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+      }
+
+      .category-list-vertical {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+      }
+
+      .category-card-vertical {
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .category-card-vertical:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Card Colors */
+      .pop {
+        background-color: #ff6b6b;
+      }
+      .hiphop {
+        background-color: #48c9b0;
+      }
+      .rock {
+        background-color: #8e44ad;
+      }
+      .electronic {
+        background-color: #2980b9;
+      }
+      .jazz {
+        background-color: #f39c12;
+      }
+      .classical {
+        background-color: #e74c3c;
+      }
+      .country {
+        background-color: #f1c40f;
+      }
+      .indie {
+        background-color: #2ecc71;
+      }
+      .metal {
+        background-color: #34495e;
+      }
+      .blues {
+        background-color: #1abc9c;
+      }
+      .reggae {
+        background-color: #9b59b6;
+      }
+      .latin {
+        background-color: #e67e22;
+      }
+      .rnb {
+        background-color: #f39c12;
+      }
+      .folk {
+        background-color: #d35400;
+      }
+
+      .container {
+        padding: 40px;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2rem;
+      }
+
+      /* Additional spacing for top banner text */
+      .category-intro {
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        color: #ddd;
+      }
+
+      /* Genre Heading */
+      .genre-heading {
+        font-size: 2rem;
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <div class="d-flex align-items-center">
+          <a class="navbar-brand" href="{% url 'dashboard' %}">Emusic</a>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Center Section (Search Icon and Category Icon) -->
+        <div class="d-flex align-items-center mx-auto">
+          <a href="{% url 'search' %}" class="icon">
+            <i class="bi bi-search" title="Search"></i>
+          </a>
+          <a href="{% url 'category' %}" class="icon">
+            <i class="bi bi-list" title="Categories"></i>
+          </a>
+        </div>
+
+        <!-- Right Section (Icons with Text) -->
+        <div class="d-flex align-items-center ms-3">
+          <a href="{% url 'spotify_login' %}" class="icon-link ms-3">
+            <i class="icon bi bi-music-note-beamed" title="Songs"></i>
+            <span style="color: #ffffff">Songs</span>
+          </a>
+          <a href="{% url 'notification' %}" class="icon-link ms-3">
+            <i class="icon bi bi-bell" title="Notification"></i>
+            <span style="color: #ffffff">Notification</span>
+          </a>
+          <a href="{% url 'subscription' %}" class="icon-link ms-3">
+            <i class="icon bi bi-bag-check" title="Subscription"></i>
+            <span style="color: #ffffff">Subscription</span>
+          </a>
+          <a href="{% url 'profile' %}" class="icon-link ms-6">
+            <i class="icon bi bi-person-circle" title="Profile"></i>
+            <span style="color: #ffffff">Profile</span>
+          </a>
+          <a class="nav-link-signout ms-3" href="{% url 'signout' %}"
+            >Signout</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Introduction to Categories Section -->
+    <div class="container category-intro">
+      <p>
+        Discover an amazing selection of music genres that fit any mood. Whether
+        you're looking for upbeat pop hits, smooth jazz tunes, or classic rock
+        anthems, we've got something for everyone!
+      </p>
+    </div>
+
+    <!-- Genres Section -->
+    <div class="container">
+      <h2 class="genre-heading">Genres</h2>
+
+      <!-- Horizontal Categories -->
+      <div class="category-list-horizontal">
+        <a
+          href="https://open.spotify.com/genre/0JQ5DAqbMKFEC4WFtoNRpw"
+          class="category-card pop"
+          >Pop</a
+        >
+        <a
+          href="https://open.spotify.com/genre/0JQ5DAqbMKFAJ5xb0fwo9m"
+          class="category-card jazz"
+          >Jazz</a
+        >
+        <a
+          href="https://open.spotify.com/playlist/65kdbMcD2bHNgCXmCeJsfa"
+          class="category-card rock"
+          >Rock</a
+        >
+        <a
+          href="https://open.spotify.com/genre/0JQ5DAqbMKFPrEiAOxgac3"
+          class="category-card classical"
+          >Classical</a
+        >
+        <a
+          href="https://open.spotify.com/genre/0JQ5DAqbMKFFzDl7qN9Apr"
+          class="category-card electronic"
+          >Electronic</a
+        >
+        <a
+          href="https://open.spotify.com/genre/0JQ5DAqbMKFFzDl7qN9Apr"
+          class="category-card classical"
+          >chill</a
+        >
+        <a
+          href="https://open.spotify.com/genre/0JQ5DAqbMKFKLfwjuJMoNC"
+          class="category-card country"
+          >Country</a
+        >
+      </div>
+
+      <!-- Vertical Categories -->
+      <div class="category-list-vertical">
+        <a
+          href="https://open.spotify.com/genre/0JQ5DAqbMKFCbimwdOYlsl"
+          class="category-card-vertical indie"
+          >Indie</a
+        >
+        <a
+          href="https://open.spotify.com/search/metal"
+          class="category-card-vertical metal"
+          >Metal</a
+        >
+        <a
+          href="https://open.spotify.com/track/3be9ACTxtcL6Zm4vJRUiPG"
+          class="category-card-vertical blues"
+          >Blues</a
+        >
+        <a
+          href="https://open.spotify.com/genre/0JQ5DAqbMKFJKoGyUMo2hE"
+          class="category-card-vertical reggae"
+          >Reggae</a
+        >
+        <a
+          href="https://open.spotify.com/genre/0JQ5DAqbMKFxXaXKP7zcDp"
+          class="category-card-vertical latin"
+          >Latin</a
+        >
+      </div>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+      integrity="sha384-9aI/dGzrN5AC/FNXzchpZV8kEhdmRIfOjNQODlLl7+3ZKZKc/jXjpt5Ptk26wCTm"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-Dz2D+gBxwW8ZRSyTayT4wvYSo24NTc1v6V+DzGqLOP9x5dRzMkFJ3Fq5FqAB6AKs"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <style>
+        /* Apply same styling as login page */
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(75, 14, 154, 1) 35%, rgba(0, 212, 255, 1) 100%);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .shadow-wrap {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 1000px;
+        }
+
+        .page-header {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: 800;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        input:focus {
+            border-color: rgba(0, 212, 255, 1);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(75, 14, 154, 1) 35%, rgba(0, 212, 255, 1) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .sublinks {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .sublinks a {
+            color: rgba(0, 212, 255, 1);
+            text-decoration: none;
+        }
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .shadow-wrap {
+                width: 100% !important;
+                flex-direction: column;
+            }
+
+            .right-column {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="shadow-wrap">
+            <div class="left-column">
+                <h1 class="page-header">Signup</h1>
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li class="alert {{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <form action="{% url 'signup' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Enter your username (only letters and numbers)" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fname">First Name</label>
+                        <input type="text" id="fname" name="fname" placeholder="Enter your First name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lname">Last Name</label>
+                        <input type="text" id="lname" name="lname" placeholder="Enter your Last name" required>
+                    </div>
+            </div>
+            <div class="right-column">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your Email Address" required>
+                </div>
+                <div class="form-group">
+                    <label for="pass1">Password</label>
+                    <input type="password" id="pass1" name="pass1" placeholder="Create your Password" required>
+                </div>
+                <div class="form-group">
+                    <label for="pass2">Confirm Password</label>
+                    <input type="password" id="pass2" name="pass2" placeholder="Confirm your Password" required>
+                </div>
+                <div class="form-wrap">
+                    <button type="submit">Signup</button>
+                </div>
+                <div class="sublinks">
+                    <p>Already have an account? <a href="{% url 'login' %}">Click here to Log In</a></p>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+</body>
+</html>
