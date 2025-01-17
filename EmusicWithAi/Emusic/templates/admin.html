@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Admin Dashboard{% endblock %}</title>
+    <!-- Link to custom CSS -->
+    <link rel="stylesheet" href="{% static 'admin_styles.css' %}" />
+    {% block extrahead %}{% endblock %}
+  </head>
+  <body>
+    <!-- Custom Admin Header -->
+    <div class="site-header">
+      <h1>{{ site_header }}</h1>
+    </div>
+
+    <!-- Sidebar and Main Content -->
+    <div class="container">
+      <div class="notification-box">
+        <h3>Notifications</h3>
+        <p>Manage your notifications here...</p>
+      </div>
+
+      <div class="category-box">
+        <div class="category-header">Song Subscriptions</div>
+        <p>Manage song subscriptions...</p>
+        <a href="#" class="btn-custom">Manage Subscriptions</a>
+      </div>
+
+      <div class="category-box">
+        <div class="category-header">Profile</div>
+        <p>Update your profile and change password...</p>
+        <a href="#" class="btn-custom">Update Profile</a>
+        <a href="#" class="btn-custom">Change Password</a>
+      </div>
+
+      <div class="category-box">
+        <div class="category-header">Contact</div>
+        <p>Manage contact settings...</p>
+        <a href="#" class="btn-custom">View Messages</a>
+      </div>
+
+      <div class="category-box">
+        <div class="category-header">Genres</div>
+        <p>Explore popular songs, artists, and radio...</p>
+        <a href="#" class="btn-custom">Popular Songs</a>
+        <a href="#" class="btn-custom">Popular Artists</a>
+        <a href="#" class="btn-custom">Popular Radio</a>
+      </div>
+    </div>
+
+    {% block content %} {% endblock %}
+  </body>
+</html>
